@@ -1,0 +1,54 @@
+module PracticalTasks where
+
+-- HC4T1 - Task 1: Define a weatherReport Function
+weatherReport :: String -> String
+weatherReport "sunny"  = "It's a bright and beautiful day!"
+weatherReport "rainy"  = "Don't forget your umbrella!"
+weatherReport "cloudy" = "A bit gloomy, but no rain yet!"
+weatherReport _        = "Weather unknown"
+
+-- HC4T2 - Task 2: Define a dayType Function
+dayType :: String -> String
+dayType "Saturday" = "It's a weekend!"
+dayType "Sunday"   = "It's a weekend!"
+dayType "Monday"   = "It's a weekday."
+dayType "Tuesday"  = "It's a weekday."
+dayType "Wednesday"= "It's a weekday."
+dayType "Thursday" = "It's a weekday."
+dayType "Friday"   = "It's a weekday."
+dayType _          = "Invalid day"
+
+-- HC4T3 - Task 3: Define a gradeComment Function
+gradeComment :: Int -> String
+gradeComment n
+  | n >= 90 && n <= 100 = "Excellent!"
+  | n >= 70 && n <= 89  = "Good job!"
+  | n >= 50 && n <= 69  = "You passed."
+  | n >= 0  && n <= 49  = "Better luck next time."
+  | otherwise           = "Invalid grade"
+
+-- HC4T4 & HC4T5 - Task 4 & 5: Rewrite specialBirthday with pattern matching
+specialBirthday :: Int -> String
+specialBirthday 1  = "Happy 1st Birthday!"
+specialBirthday 18 = "Congrats on turning 18!"
+specialBirthday 21 = "Cheers to 21 years!"
+specialBirthday 50 = "Happy 50th Birthday!"
+specialBirthday age = "Happy Birthday! You are " ++ show age ++ " years old."
+
+-- HC4T6 - Task 6: Identify List Contents Using Pattern Matching
+whatsInsideThisList :: [a] -> String
+whatsInsideThisList []        = "The list is empty."
+whatsInsideThisList [x]       = "The list has one element."
+whatsInsideThisList [x,y]     = "The list has two elements."
+whatsInsideThisList (x:y:_:_) = "The list has many elements."
+whatsInsideThisList _         = "Unknown list structure."
+
+-- HC4T7 - Task 7: Ignore Elements in a List
+firstAndThird :: [a] -> (Maybe a, Maybe a)
+firstAndThird (x:_:z:_) = (Just x, Just z)
+firstAndThird (x:_)     = (Just x, Nothing)
+firstAndThird []        = (Nothing, Nothing)
+
+-- HC4T8 - Task 8: Extract Values from Tuples
+describeTuple :: (String, Int) -> String
+describeTuple (name, age) = name ++ " is " ++ show age ++ " years old."
