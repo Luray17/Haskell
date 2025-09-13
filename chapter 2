@@ -1,0 +1,72 @@
+-- HC2T1 - Task 1: Checking Types
+-- Expected types:
+-- 42              :: Int
+-- 3.14            :: Double
+-- "Haskell"       :: String
+-- 'Z'             :: Char
+-- True && False   :: Bool
+
+-- HC2T2 - Task 2: Function Type Signatures and Implementations
+add :: Int -> Int -> Int
+add x y = x + y
+
+isEven :: Int -> Bool
+isEven n = n `mod` 2 == 0
+
+concatStrings :: String -> String -> String
+concatStrings s1 s2 = s1 ++ s2
+
+-- HC2T3 - Task 3: Immutable Variables
+myAge :: Int
+myAge = 25
+
+piValue :: Double
+piValue = 3.14159
+
+greeting :: String
+greeting = "Hello, Haskell!"
+
+isHaskellFun :: Bool
+isHaskellFun = True
+
+-- Trying to redefine a variable (e.g. myAge = 30) will give an error,
+-- since Haskell variables are immutable.
+
+-- HC2T4 - Task 4: Converting Between Infix and Prefix Notations
+-- Infix → Prefix
+example1 = (+) 5 3
+example2 = (*) 10 4
+example3 = (&&) True False
+
+-- Prefix → Infix
+example4 = 7 + 2
+example5 = 6 * 5
+example6 = True && False
+
+-- HC2T5 - Task 5: Defining and Using Functions
+circleArea :: Float -> Float
+circleArea r = pi * r * r
+
+maxOfThree :: Int -> Int -> Int -> Int
+maxOfThree a b c = max a (max b c)
+
+-- Examples to test in GHCi:
+-- circleArea 5
+-- maxOfThree 3 7 5
+
+-- HC2T6 - Task 6: Int vs Integer
+smallNumber :: Int
+smallNumber = 262
+
+bigNumber :: Integer
+bigNumber = 2127
+
+-- In GHCi:
+-- > 2^64 :: Int       -- will overflow (wrap around)
+-- > 2^64 :: Integer   -- works fine (arbitrary precision)
+
+-- HC2T7 - Task 7: Boolean Expressions
+bool1 = True && True        -- evaluates to True
+bool2 = False || False      -- evaluates to False
+bool3 = not False           -- evaluates to True
+bool4 = 5 > 10              -- evaluates to False
