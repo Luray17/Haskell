@@ -1,0 +1,177 @@
+-- Haskell Chapter 10 Practical Tasks
+-- Custom Type Classes and Instances
+module Main where
+
+--------------------------------------------------------
+-- Example Data Types Used in Multiple Tasks
+--------------------------------------------------------
+data PaymentMethod = Cash | CreditCard | PayPal deriving (Show)
+data Blockchain = Bitcoin | Ethereum | Solana deriving (Show)
+data User = User { name :: String, age :: Int } deriving (Show)
+data Box a = Box a deriving (Show)
+
+--------------------------------------------------------
+-- HC10T1: ShowSimple Type Class
+--------------------------------------------------------
+class ShowSimple a where
+    showSimple :: a -> String
+
+instance ShowSimple PaymentMethod where
+    showSimple Cash = "Cash Payment"
+    showSimple CreditCard = "Credit Card Payment"
+    showSimple PayPal = "PayPal Payment"
+
+--------------------------------------------------------
+-- HC10T2: Summable Type Class
+--------------------------------------------------------
+class Summable a where
+    sumUp :: [a] -> a
+
+instance Summable Int where
+    sumUp = sum
+
+--------------------------------------------------------
+-- HC10T3: Comparable Type Class
+--------------------------------------------------------
+class Comparable a where
+    compareWith :: a -> a -> Ordering
+
+instance Comparable Blockchain where
+    compareWith Bitcoin Bitcoin = EQ
+    compareWith Bitcoin _       = LT
+    compareWith Ethereum Bitcoin = GT
+    compareWith Ethereum Ethereum = EQ
+    compareWith Ethereum Solana = LT
+    compareWith Solana Solana = EQ
+    compareWith Solana _ = GT
+
+--------------------------------------------------------
+-- HC10T4: Eq Instance for Box
+--------------------------------------------------------
+instance (Eq a) => Eq (Box a) where
+    (Box a) == (Box b) = a == b
+
+--------------------------------------------------------
+-- HC10T5: ShowDetailed Type Class
+--------------------------------------------------------
+class ShowDetailed a where
+    showDetailed :: a -> String
+
+instance ShowDetailed User where
+    showDetailed (User n a) = "User: " ++ n ++ ", Age: " ++ show a
+
+--------------------------------------------------------
+-- HC10T6: Mutual Recursion in Eq for Blockchain
+--------------------------------------------------------
+instance Eq Blockchain where
+    (==) Bitcoin Bitcoin = True
+    (==) Ethereum Ethereum = True
+    (==) Solana Solana = True
+    (==) _ _ = False
+
+    (/=) a b = not (a == b)  -- mutual recursion
+
+--------------------------------------------------------
+-- HC10T7: Convertible Type Class
+--------------------------------------------------------
+class Convertible a b where
+    convert :: a -> b
+
+instance Convertible PaymentMethod String where
+    convert Cash = "Cash"
+    convert CreditCard = "Credit Card"
+    convert PayPal = "PayPal"
+
+--------------------------------------------------------
+-- HC10T8: AdvancedEq Subclass of Eq
+--------------------------------------------------------
+class Eq a => AdvancedEq a where
+    compareEquality :: a -> a -> Bool
+    compareEquality x y = x == y  -- default implementation
+
+instance AdvancedEq Int
+
+--------------------------------------------------------
+-- HC10T9: MinMax Type Class
+--------------------------------------------------------
+class MinMax a where
+    minValue :: a
+    maxValue :: a
+
+instance MinMax Int where
+    minValue = minBound
+    maxValue = maxBound
+
+--------------------------------------------------------
+-- HC10T10: Concatenatable Type Class
+--------------------------------------------------------
+class Concatenatable a where
+    concatWith :: a -> a -> a
+
+instance Concatenatable String where
+    concatWith = (++)
+
+--------------------------------------------------------
+-- MAIN FUNCTION (Tests for All Tasks)
+--------------------------------------------------------
+main :: IO ()
+main = do
+    putStrLn "==================== Haskell Chapter 10 Tasks ====================\n"
+
+    -- HC10T1
+    putStrLn "HC10T1: ShowSimple"
+    print (showSimple Cash)
+    print (showSimple CreditCard)
+    putStrLn ""
+
+    -- HC10T2
+    putStrLn "HC10T2: Summable"
+    print (sumUp [1,2,3,4,5] :: Int)
+    putStrLn ""
+
+    -- HC10T3
+    putStrLn "HC10T3: Comparable"
+    print (compareWith Bitcoin Ethereum)
+    print (compareWith Solana Bitcoin)
+    putStrLn ""
+
+    -- HC10T4
+    putStrLn "HC10T4: Eq for Box"
+    print (Box 5 == Box 5)
+    print (Box 5 == Box 6)
+    putStrLn ""
+
+    -- HC10T5
+    putStrLn "HC10T5: ShowDetailed"
+    print (showDetailed (User "Alice" 30))
+    putStrLn ""
+
+    -- HC10T6
+    putStrLn "HC10T6: Mutual Recursion Eq for Blockchain"
+    print (Bitcoin == Ethereum)
+    print (Ethereum /= Solana)
+    putStrLn ""
+
+    -- HC10T7
+    putStrLn "HC10T7: Convertible"
+    print (convert PayPal :: String)
+    putStrLn ""
+
+    -- HC10T8
+    putStrLn "HC10T8: AdvancedEq"
+    print (compareEquality (5 :: Int) 5)
+    print (compareEquality (5 :: Int) 6)
+    putStrLn ""
+
+    -- HC10T9
+    putStrLn "HC10T9: MinMax"
+    print (minValue :: Int)
+    print (maxValue :: Int)
+    putStrLn ""
+
+    -- HC10T10
+    putStrLn "HC10T10: Concatenatable"
+    print (concatWith "Hello, " "World!")
+    putStrLn ""
+
+    putStrLn "==================== End of Chapter 10 ===================="
