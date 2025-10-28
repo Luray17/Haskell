@@ -1,0 +1,145 @@
+module Main where
+
+import Data.Char (toUpper)
+
+------------------------------------------------------------
+-- HC11T1: Greet the User
+------------------------------------------------------------
+greetUser :: IO ()
+greetUser = do
+    let name = "Alice"
+    putStrLn ("Hello, " ++ name ++ "!")
+
+------------------------------------------------------------
+-- HC11T2: Count Characters in a Line
+------------------------------------------------------------
+countChars :: IO ()
+countChars = do
+    let line = "Functional Programming"
+    putStrLn ("Input: " ++ line)
+    putStrLn ("Number of characters: " ++ show (length line))
+
+------------------------------------------------------------
+-- HC11T3: Double a Number
+------------------------------------------------------------
+doubleNumber :: IO ()
+doubleNumber = do
+    let number = 5 :: Int
+    putStrLn ("Number: " ++ show number)
+    putStrLn ("Double: " ++ show (number * 2))
+
+------------------------------------------------------------
+-- HC11T4: Concatenate Two Lines
+------------------------------------------------------------
+concatLines :: IO ()
+concatLines = do
+    let first  = "Hello, "
+    let second = "World!"
+    putStrLn ("Concatenated: " ++ first ++ second)
+
+------------------------------------------------------------
+-- HC11T5: Repeat Until "quit"
+------------------------------------------------------------
+simulateLoop :: [String] -> IO ()
+simulateLoop [] = putStrLn "Goodbye!"
+simulateLoop (x:xs)
+    | x == "quit" = putStrLn "Goodbye!"
+    | otherwise = do
+        putStrLn ("You entered: " ++ x)
+        simulateLoop xs
+
+repeatUntilQuit :: IO ()
+repeatUntilQuit = simulateLoop ["hi", "test", "quit"]
+
+------------------------------------------------------------
+-- HC11T6: Uppercase Converter
+------------------------------------------------------------
+uppercaseConverter :: IO ()
+uppercaseConverter = do
+    let input = "hello world"
+    putStrLn ("Input: " ++ input)
+    putStrLn ("Uppercase: " ++ map toUpper input)
+
+------------------------------------------------------------
+-- HC11T7: User Options
+------------------------------------------------------------
+userOptions :: IO ()
+userOptions = do
+    let choice = "2"  -- sample choice
+    putStrLn ("User selected option " ++ choice)
+    case choice of
+        "1" -> do
+            let name = "Bob"
+            putStrLn ("Hello, " ++ name ++ "!")
+        "2" -> do
+            let x = 10
+            let y = 20
+            putStrLn ("Sum: " ++ show (x + y))
+        "3" -> putStrLn "Exiting..."
+        _   -> putStrLn "Invalid option!"
+
+------------------------------------------------------------
+-- HC11T8: Even or Odd Checker
+------------------------------------------------------------
+evenOrOdd :: IO ()
+evenOrOdd = do
+    let number = 7 :: Int
+    putStrLn ("Number: " ++ show number)
+    if even number
+        then putStrLn "The number is even."
+        else putStrLn "The number is odd."
+
+------------------------------------------------------------
+-- HC11T9: Sum Two Numbers
+------------------------------------------------------------
+sumTwoNumbers :: IO ()
+sumTwoNumbers = do
+    let x = 8
+    let y = 15
+    putStrLn ("Numbers: " ++ show x ++ " and " ++ show y)
+    putStrLn ("The sum is: " ++ show (x + y))
+
+------------------------------------------------------------
+-- HC11T10: Reverse User Input
+------------------------------------------------------------
+reverseInput :: IO ()
+reverseInput = do
+    let input = "Haskell"
+    putStrLn ("Input: " ++ input)
+    putStrLn ("Reversed: " ++ reverse input)
+
+------------------------------------------------------------
+-- Main Menu
+------------------------------------------------------------
+main :: IO ()
+main = do
+    putStrLn "Haskell Chapter 11 Practical Tasks"
+    putStrLn "-----------------------------------"
+    putStrLn "1. Greet the User"
+    putStrLn "2. Count Characters in a Line"
+    putStrLn "3. Double a Number"
+    putStrLn "4. Concatenate Two Lines"
+    putStrLn "5. Repeat Until \"quit\""
+    putStrLn "6. Uppercase Converter"
+    putStrLn "7. User Options"
+    putStrLn "8. Even or Odd Checker"
+    putStrLn "9. Sum Two Numbers"
+    putStrLn "10. Reverse User Input"
+    putStrLn "Enter a task number (1–10):"
+
+    -- In an online environment, we simulate a fixed choice (e.g., "1")
+    let choice = "1"
+    putStrLn ("[Simulated Choice: " ++ choice ++ "]")
+
+    case choice of
+        "1"  -> greetUser
+        "2"  -> countChars
+        "3"  -> doubleNumber
+        "4"  -> concatLines
+        "5"  -> repeatUntilQuit
+        "6"  -> uppercaseConverter
+        "7"  -> userOptions
+        "8"  -> evenOrOdd
+        "9"  -> sumTwoNumbers
+        "10" -> reverseInput
+        _    -> putStrLn "Invalid choice!"
